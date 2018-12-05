@@ -3,6 +3,7 @@ package com.piction.pixelwallet.lib.di
 import com.piction.pixelwallet.App
 import com.piction.pixelwallet.lib.di.modules.ActivityModule
 import com.piction.pixelwallet.lib.di.modules.ApplicationModule
+import com.piction.pixelwallet.lib.di.modules.ViewModelModule
 import com.piction.pixelwallet.lib.di.modules.Web3Module
 import javax.inject.Singleton
 
@@ -15,9 +16,11 @@ import dagger.android.support.AndroidSupportInjectionModule
 @Component(modules = [AndroidSupportInjectionModule::class,
     ApplicationModule::class,
     ActivityModule::class,
+    ViewModelModule::class,
     Web3Module::class])
 interface AppComponent : AndroidInjector<App> {
 
+    //todo fragmentModule
 override fun inject(instance: App)
 
 @Component.Builder

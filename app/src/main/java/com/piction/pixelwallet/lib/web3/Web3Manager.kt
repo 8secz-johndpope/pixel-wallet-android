@@ -1,11 +1,11 @@
 package com.piction.pixelwallet.lib.web3
 
 
-class Web3Manager(type: Web3Type): IWeb3 {
+class Web3Manager(type: Web3Type): Web3 {
 
     enum class Web3Type { WEB3J, WEB3JS}
 
-    private var web3: IWeb3
+    private var web3: Web3
 
     init {
         web3 = when (type) {

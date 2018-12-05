@@ -1,7 +1,7 @@
 package com.piction.pixelwallet.lib.web3
 
 
-interface IWeb3 {
+interface Web3 {
 
     fun getVersion(): String
 }

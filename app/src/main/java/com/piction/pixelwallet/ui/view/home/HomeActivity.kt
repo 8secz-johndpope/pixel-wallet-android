@@ -4,12 +4,22 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.snackbar.Snackbar
 import com.piction.pixelwallet.R
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_main.*
+import javax.inject.Inject
 
 class HomeActivity : AppCompatActivity() {
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    private val viewModel by lazy {
+        ViewModelProviders.of(this, viewModelFactory).get(HomeActivityViewModel::class.java)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
@@ -18,8 +28,10 @@ class HomeActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
+        //todo LiveData Observe
+
         fab.setOnClickListener { view ->
-            Snackbar.make(view, "", Snackbar.LENGTH_LONG)
+            Snackbar.make(view, viewModel.getWeb3Version(), Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
         }
     }

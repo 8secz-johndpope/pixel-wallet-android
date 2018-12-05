@@ -12,9 +12,6 @@ class ApplicationModule {
     fun provideContext(application: App): Context =
         application
 
-    //todo ViewModelModule
-    //todo fragmentModule
-    
     //todo Account
     //todo FileUtil
 
