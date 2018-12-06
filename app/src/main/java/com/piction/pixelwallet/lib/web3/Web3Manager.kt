@@ -1,21 +1,30 @@
 package com.piction.pixelwallet.lib.web3
 
 
-class Web3Manager(type: Web3Type): Web3 {
+class Web3Manager(var type: Web3Type) : Web3 {
 
-    enum class Web3Type { WEB3J, WEB3JS}
+    enum class Web3Type { WEB3J, WEB3JS }
 
-    private var web3: Web3
+    private lateinit var web3: Web3
 
     init {
+        createWeb3()
+    }
+
+    private fun createWeb3() {
         web3 = when (type) {
             Web3Type.WEB3J -> Web3j()
-            Web3Type.WEB3JS -> Web3j() //Todo web3js
+            Web3Type.WEB3JS -> Web3js()
         }
     }
 
-    override fun getVersion(): String {
-        return web3.getVersion()
+    fun updateWeb3Type(type: Web3Type) {
+        this.type = type
+        createWeb3()
+    }
+
+    override fun getVersion(result: (String) -> Unit) {
+        web3.getVersion(result)
     }
 
 }

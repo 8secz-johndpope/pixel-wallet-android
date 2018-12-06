@@ -2,6 +2,5 @@ package com.piction.pixelwallet.lib.web3
 
 
 interface Web3 {
-
-    fun getVersion(): String
+    fun getVersion(result: (String) -> Unit)
 }

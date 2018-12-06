@@ -4,12 +4,15 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.snackbar.Snackbar
 import com.piction.pixelwallet.R
+import com.piction.pixelwallet.util.extension.observeLiveData
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_main.*
+import org.jetbrains.anko.contentView
 import javax.inject.Inject
 
 class HomeActivity : AppCompatActivity() {
@@ -28,12 +31,16 @@ class HomeActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        //todo LiveData Observe
+        observeLiveData(viewModel.version) {showSnackbar(it)}
 
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, viewModel.getWeb3Version(), Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+        fab.setOnClickListener {
+            viewModel.getWeb3Version()
         }
+    }
+
+    private fun showSnackbar(msg: String) {
+        Snackbar.make(this.contentView!!, msg, Snackbar.LENGTH_LONG)
+            .setAction("Action", null).show()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
