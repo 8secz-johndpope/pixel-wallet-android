@@ -9,6 +9,7 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
         tools:context=".ui.view.home.HomeActivity">
 
         <com.google.android.material.appbar.AppBarLayout
@@ -35,6 +36,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
+            android:fitsSystemWindows="true"
             android:layout_margin="@dimen/fab_margin"
             android:onClick="@{view -> viewModel.getWeb3Version()}"
             app:srcCompat="@android:drawable/ic_dialog_email"/>

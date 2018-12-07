@@ -1,5 +1,6 @@
 package com.piction.pixelwallet.lib.di.modules
 
+import com.piction.pixelwallet.ui.view.account.CreateAccountActivity
 import com.piction.pixelwallet.ui.view.home.HomeActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -10,4 +11,6 @@ abstract class ActivityModule {
     @ContributesAndroidInjector
     internal abstract fun contributeHomeActivity(): HomeActivity
 
+    @ContributesAndroidInjector
+    internal abstract fun contributeCreateAccountActivity(): CreateAccountActivity
 }

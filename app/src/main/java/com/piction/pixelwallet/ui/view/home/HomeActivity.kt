@@ -7,13 +7,13 @@ import android.view.MenuItem
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
-import com.google.android.material.snackbar.Snackbar
 import com.piction.pixelwallet.R
 import com.piction.pixelwallet.databinding.ActivityHomeBinding
+import com.piction.pixelwallet.ui.view.account.CreateAccountActivity
 import com.piction.pixelwallet.util.extension.observeLiveData
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_home.*
-import org.jetbrains.anko.contentView
+import org.jetbrains.anko.startActivity
 import javax.inject.Inject
 
 class HomeActivity : AppCompatActivity() {
@@ -39,14 +39,7 @@ class HomeActivity : AppCompatActivity() {
 
         setSupportActionBar(toolbar)
 
-        observeLiveData(viewModel.version) {
-            showSnackbar(it)
-        }
-    }
-
-    private fun showSnackbar(msg: String) {
-        Snackbar.make(this.contentView!!, msg, Snackbar.LENGTH_LONG)
-            .setAction("Action", null).show()
+        observeLiveData(viewModel.startActivity) { startActivity<CreateAccountActivity>() }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
