@@ -4,10 +4,12 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.snackbar.Snackbar
 import com.piction.pixelwallet.R
+import com.piction.pixelwallet.databinding.ActivityHomeBinding
 import com.piction.pixelwallet.util.extension.observeLiveData
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_home.*
@@ -23,17 +25,22 @@ class HomeActivity : AppCompatActivity() {
         ViewModelProviders.of(this, viewModelFactory).get(HomeActivityViewModel::class.java)
     }
 
+    private val binding by lazy {
+        DataBindingUtil.setContentView<ActivityHomeBinding>(this, R.layout.activity_home)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
 
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home)
+
+        binding.viewModel = viewModel
+        binding.setLifecycleOwner(this)
+
         setSupportActionBar(toolbar)
 
-        observeLiveData(viewModel.version) {showSnackbar(it)}
-
-        fab.setOnClickListener {
-            viewModel.getWeb3Version()
+        observeLiveData(viewModel.version) {
+            showSnackbar(it)
         }
     }
 

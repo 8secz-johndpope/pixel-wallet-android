@@ -16,4 +16,5 @@ constructor(
     val version: LiveData<String> get() = versionLiveData
 
     fun getWeb3Version(): Unit = web3Manager.getVersion { versionLiveData.postValue(it) }
+
 }
