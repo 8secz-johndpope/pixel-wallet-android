@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.piction.pixelwallet.App
 import com.piction.pixelwallet.lib.persistence.preferences.StringDynamicPreference
+import com.piction.pixelwallet.lib.persistence.preferences.DynamicPreference
 import com.piction.pixelwallet.model.User
 import dagger.Module
 import dagger.Provides
@@ -20,6 +21,13 @@ class ApplicationModule {
     @Singleton
     internal fun provideSharedPreferences(context: Context): SharedPreferences =
         context.getSharedPreferences("com.piction.pixelwallet", Context.MODE_PRIVATE)
+
+
+    @Provides
+    @Singleton
+    internal fun provideDynamicPreference(sharedPreferences: SharedPreferences): DynamicPreference =
+        DynamicPreference(sharedPreferences)
+
 
     @Provides
     @Singleton
