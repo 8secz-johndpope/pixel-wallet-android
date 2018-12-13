@@ -68,6 +68,8 @@ dependencies {
     kapt "com.google.dagger:dagger-android-processor:$dagger_version"
 
     implementation "org.web3j:core:$web3j_version"
+    implementation "com.madgag.spongycastle:bcpkix-jdk15on:1.58.0.0"
+    implementation "com.madgag.spongycastle:prov:1.58.0.0"
     implementation "io.reactivex:rxandroid:1.2.1"
 
     implementation 'com.jakewharton.timber:timber:4.7.1'

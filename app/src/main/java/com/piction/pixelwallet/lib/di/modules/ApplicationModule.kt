@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import com.piction.pixelwallet.App
 import com.piction.pixelwallet.lib.persistence.preferences.DynamicPreference
 import com.piction.pixelwallet.lib.secure.CipherHelper
+import com.piction.pixelwallet.lib.secure.PictionKeyStore
 import com.piction.pixelwallet.model.User
 import dagger.Module
 import dagger.Provides
@@ -40,6 +41,10 @@ class ApplicationModule {
     internal fun provideCipherHelper(context: Context) : CipherHelper =
             CipherHelper(context)
 
+    @Provides
+    @Singleton
+    internal fun providePictionKeyStore(cipherHelper: CipherHelper, dynamicPreference: DynamicPreference) : PictionKeyStore =
+        PictionKeyStore(cipherHelper, dynamicPreference)
 
     //todo Account
     //todo FileUtil

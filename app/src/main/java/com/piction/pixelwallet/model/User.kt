@@ -1,8 +1,8 @@
 package com.piction.pixelwallet.model
 
-import com.piction.pixelwallet.lib.persistence.preferences.StringDynamicPreference
+import com.piction.pixelwallet.lib.persistence.preferences.DynamicPreference
 
-class User(private val stringDynamicPreference: StringDynamicPreference) {
+class User(private val dynamicPreference: DynamicPreference) {
 
     val userPinKey = "piction.pixelwallet.user_pin"
 
@@ -17,11 +17,11 @@ class User(private val stringDynamicPreference: StringDynamicPreference) {
     var accountList: MutableList<Account> = ArrayList()
 
 
-    fun setPin(string: String) { stringDynamicPreference[userPinKey] = string }
+    fun setPin(string: String) { dynamicPreference.put(userPinKey, "string") }
 
-    fun equalsPin(string: String): Boolean = stringDynamicPreference[userPinKey]?.let { it == string } ?: let { false }
+    fun equalsPin(string: String): Boolean = dynamicPreference.get(userPinKey, "") == string
 
-    fun getPin(): String? = stringDynamicPreference[userPinKey]
+    fun getPin(): String? = dynamicPreference.get(userPinKey, "")
 
     fun createAccount(password: String) {
         //todo
