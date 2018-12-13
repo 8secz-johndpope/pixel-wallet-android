@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.piction.pixelwallet.lib.web3.Web3Manager
+import timber.log.Timber
 import javax.inject.Inject
 
 class HomeActivityViewModel @Inject
@@ -22,5 +23,11 @@ constructor(
 
     fun startActivity(msg: String) {
         startActivityLiveData.postValue(msg)
+    }
+
+    fun createWallet() {
+        web3Manager.createWallet()
+        Timber.d("Wallet Count: ${web3Manager.getWalletCount()}")
+        versionLiveData.postValue(web3Manager.getWalletFile(0).address)
     }
 }

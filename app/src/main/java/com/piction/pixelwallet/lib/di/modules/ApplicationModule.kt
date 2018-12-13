@@ -3,8 +3,8 @@ package com.piction.pixelwallet.lib.di.modules
 import android.content.Context
 import android.content.SharedPreferences
 import com.piction.pixelwallet.App
-import com.piction.pixelwallet.lib.persistence.preferences.StringDynamicPreference
 import com.piction.pixelwallet.lib.persistence.preferences.DynamicPreference
+import com.piction.pixelwallet.lib.secure.CipherHelper
 import com.piction.pixelwallet.model.User
 import dagger.Module
 import dagger.Provides
@@ -31,13 +31,14 @@ class ApplicationModule {
 
     @Provides
     @Singleton
-    internal fun provideStringDynamicPreference(sharedPreferences: SharedPreferences): StringDynamicPreference =
-        StringDynamicPreference(sharedPreferences, null)
+    internal fun provideUser(dynamicPreference: DynamicPreference): User =
+        User(dynamicPreference)
+
 
     @Provides
     @Singleton
-    internal fun provideUser(stringDynamicPreference: StringDynamicPreference): User =
-        User(stringDynamicPreference)
+    internal fun provideCipherHelper(context: Context) : CipherHelper =
+            CipherHelper(context)
 
 
     //todo Account
