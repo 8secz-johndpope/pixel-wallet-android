@@ -26,8 +26,8 @@ constructor(
     }
 
     fun createWallet() {
-        web3Manager.createWallet()
-        Timber.d("Wallet Count: ${web3Manager.getWalletCount()}")
-        versionLiveData.postValue(web3Manager.getWalletFile(0).address)
+        val address = web3Manager.createWallet()
+        Timber.d("Wallet Count: ${address.toString()}")
+        versionLiveData.postValue(address.toString())
     }
 }

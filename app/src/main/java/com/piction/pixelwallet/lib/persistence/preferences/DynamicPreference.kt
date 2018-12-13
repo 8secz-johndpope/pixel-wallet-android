@@ -3,7 +3,7 @@ package com.piction.pixelwallet.lib.persistence.preferences
 import android.content.SharedPreferences
 
 
-class DynamicPreference(
+open class DynamicPreference(
     private val sharedPreferences: SharedPreferences
 ) {
     fun contains(key: String) = sharedPreferences.contains(key)
@@ -17,7 +17,7 @@ class DynamicPreference(
     fun get(key: String, defaultValue: String): String = getInternal(key, defaultValue)
 
     @Suppress("IMPLICIT_CAST_TO_ANY", "UNCHECKED_CAST")
-    private fun <T : Any> getInternal(key: String, defaultValue: T): T {
+    protected open fun <T : Any> getInternal(key: String, defaultValue: T): T {
         val str = sharedPreferences.getString(key, "")
         if (str.isNullOrEmpty()) {
             return defaultValue
@@ -39,7 +39,7 @@ class DynamicPreference(
 
     fun put(key: String, value: String) = putInternal(key, value)
 
-    private fun putInternal(key: String, value: Any?) {
+    protected open fun putInternal(key: String, value: Any?) {
         try {
             sharedPreferences.edit().run {
                 if (value == null) {

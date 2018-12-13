@@ -5,14 +5,11 @@ import android.os.Build
 import android.security.keystore.KeyGenParameterSpec
 import android.security.keystore.KeyProperties
 import android.util.Base64
-import android.util.Log
-import org.spongycastle.crypto.params.ECKeyGenerationParameters
-import org.web3j.crypto.ECKeyPair
-import org.web3j.crypto.Keys
-import org.web3j.crypto.Wallet
 import timber.log.Timber
-import java.security.*
-import java.security.spec.ECGenParameterSpec
+import java.security.GeneralSecurityException
+import java.security.KeyPairGenerator
+import java.security.KeyStore
+import java.security.Security
 import java.security.spec.RSAKeyGenParameterSpec
 import java.security.spec.RSAKeyGenParameterSpec.F4
 import javax.crypto.Cipher
@@ -79,7 +76,6 @@ class CipherHelper(applicationContext: Context) {
                 initialize(spec)
                 generateKeyPair()
             }
-            Timber.i("Random keypair with ${KeyProperties.KEY_ALGORITHM_RSA}/${KeyProperties.BLOCK_MODE_CBC}/${KeyProperties.ENCRYPTION_PADDING_RSA_PKCS1} is created.")
 
             return true
         } catch (e: GeneralSecurityException) {
@@ -121,75 +117,5 @@ class CipherHelper(applicationContext: Context) {
         val decryptedBytes = cipher.doFinal(encryptedBytes)
 
         return String(decryptedBytes)
-    }
-
-    fun createAddr() {
-
-        val pwd = "soso"
-        val alias = "key1"
-
-        val keyStore = KeyStore.getInstance(keyProviderName).apply { load(null) }
-
-        //저장된 목록 출력
-        val aliases = keyStore.aliases()
-        Log.d("web3", "list: " + aliases.toList().toString())
-
-        //저장되어 있는지 확인
-        if (keyStore.containsAlias(alias)) {
-            val keyEntry: KeyStore.Entry = keyStore.getEntry(alias, null)
-            (keyEntry as KeyStore.PrivateKeyEntry).privateKey
-            Log.d("web3", "containsAlias private key:" + keyEntry.privateKey)
-        }
-
-        //web3j 계정 생성
-        var ecKeyPair = Keys.createEcKeyPair()
-        Log.d("web3", "private key:" + ecKeyPair.privateKey)
-        Log.d("web3", "public key:" + ecKeyPair.publicKey)
-
-        //자 이제 저장해보자
-        //파일 방법 1
-        val wallet = Wallet.createLight(pwd, ecKeyPair)
-        wallet.address
-
-        // 등등
-        // WalletUtils.generateWalletFile()
-
-
-        //android CipherHelper 방법
-        //keypair 생성
-        //refer Keys.createEcKeyPair()
-
-        val keyPairGenerator = KeyPairGenerator.getInstance("ECDSA", "SC")
-        val ecGenParameterSpec = ECGenParameterSpec("secp256k1")
-        keyPairGenerator.initialize(ecGenParameterSpec, SecureRandom())
-        val keyPair = keyPairGenerator.genKeyPair()
-
-        Log.d("web3", "private key:" + keyPair.private)
-        Log.d("web3", "public key:" + keyPair.public)
-
-        //저장 쉬발 것 ...
-        //keyStore.setEntry(alias, it., null)
-
-        //저장된 것 가져와서 출력
-        ecKeyPair = ECKeyPair.create(getKeyPair(keyStore, alias, pwd))
-
-        Log.d("web3", "private key:" + ecKeyPair.privateKey)
-        Log.d("web3", "public key:" + ecKeyPair.publicKey)
-        Log.d("web3", "getAddress:" + Keys.getAddress(ecKeyPair))
-
-        //웰렛 생성
-        //Wallet.createLight(pwd, ecKeyPair)
-
-        //웰렛 파일 output
-        //WalletUtils.generateWalletFile(pwd, ecKeyPair, File("didodo"), false)
-    }
-
-    fun getKeyPair(keystore: KeyStore, alias: String, password: String): KeyPair {
-        val key = keystore.getKey(alias, password.toCharArray()) as PrivateKey
-
-        val cert = keystore.getCertificate(alias)
-        val publicKey = cert.publicKey
-
-        return KeyPair(publicKey, key)
     }
 }

@@ -1,30 +1,31 @@
 package com.piction.pixelwallet.lib.web3
 
+import com.piction.pixelwallet.lib.keystore.WalletKeyStore
+import com.piction.pixelwallet.lib.persistence.preferences.SecureDynamicPreference
+import com.piction.pixelwallet.model.Address
 
-class Web3Manager(var type: Web3Type) : Web3 {
+import org.web3j.crypto.Keys
+import java.util.*
 
-    enum class Web3Type { WEB3J, WEB3JS }
 
-    private lateinit var web3: Web3
+class Web3Manager(
+    private val walletKeyStore: WalletKeyStore,
+    private val secureDynamicPreference: SecureDynamicPreference
+) : Web3 {
+
+    val pwdKey = "piction_pixelwallet"
 
     init {
-        createWeb3()
-    }
-
-    private fun createWeb3() {
-        web3 = when (type) {
-            Web3Type.WEB3J -> Web3j()
-            Web3Type.WEB3JS -> Web3js()
+        if (secureDynamicPreference.get(pwdKey, "").isEmpty()) {
+            secureDynamicPreference.put(pwdKey, UUID.randomUUID().toString())
         }
     }
-
-    fun updateWeb3Type(type: Web3Type) {
-        this.type = type
-        createWeb3()
-    }
+    private var web3: Web3 = Web3j()
 
     override fun getVersion(result: (String) -> Unit) {
         web3.getVersion(result)
     }
 
+    fun createWallet(): Address? =
+        walletKeyStore.importKey(Keys.createEcKeyPair(), secureDynamicPreference.get(pwdKey, ""))
 }

@@ -17,4 +17,5 @@ class Web3j : Web3 {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ result(it.web3ClientVersion) },{})
     }
+
 }
