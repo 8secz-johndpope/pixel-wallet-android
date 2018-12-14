@@ -14,6 +14,7 @@ import com.piction.pixelwallet.util.extension.observeLiveData
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_home.*
 import org.jetbrains.anko.startActivity
+import timber.log.Timber
 import javax.inject.Inject
 
 class HomeActivity : AppCompatActivity() {
@@ -40,6 +41,10 @@ class HomeActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         observeLiveData(viewModel.startActivity) { startActivity<CreateAccountActivity>() }
+
+        observeLiveData(viewModel.walletList) { it ->
+            it.forEach { Timber.d("Account: ${it.address}") }
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

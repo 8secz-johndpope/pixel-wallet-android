@@ -1,14 +1,25 @@
 package com.piction.pixelwallet.lib.keystore
 
 import android.content.Context
+import com.piction.pixelwallet.lib.persistence.preferences.SecureDynamicPreference
+import com.piction.pixelwallet.model.Account
 import com.piction.pixelwallet.model.Address
+import org.web3j.crypto.Credentials
 import org.web3j.crypto.ECKeyPair
 import org.web3j.crypto.WalletUtils
-
 import java.io.File
+import java.util.*
 
 
-class FileBasedWalletKeyStore(val context: Context) : WalletKeyStore {
+class FileBasedWalletKeyStore(val context: Context, private val secureDynamicPreference: SecureDynamicPreference) {
+
+    val pwdKey = "piction_pixelwallet"
+
+    init {
+        if (secureDynamicPreference.get(pwdKey, "").isEmpty()) {
+            secureDynamicPreference.put(pwdKey, UUID.randomUUID().toString())
+        }
+    }
 
     private val keyStoreDirectory by lazy {
         File(context.filesDir, "keystore").also {
@@ -16,35 +27,17 @@ class FileBasedWalletKeyStore(val context: Context) : WalletKeyStore {
         }
     }
 
-    private val fileMap by lazy {
-        mutableMapOf<Address, File>().apply {
-            rebuildList()
+    fun putKey(key: ECKeyPair): Account =
+        WalletUtils.generateWalletFile(secureDynamicPreference.get(pwdKey, ""), key, keyStoreDirectory, false).let {
+            Account(Address(it.split("--").last().removeSuffix(".json")), "", getFile(it))
         }
+
+    fun deleteKey(account: Account) = account.file.delete()
+
+    fun getCredentials(account: Account): Credentials =
+        WalletUtils.loadCredentials(secureDynamicPreference.get(pwdKey, ""), account.file)
+
+    private fun getFile(name: String): File {
+        return File(keyStoreDirectory.absolutePath + "/" + name)
     }
-
-    private fun MutableMap<Address, File>.rebuildList() {
-        keyStoreDirectory.listFiles().forEach {
-            put(Address(it.name.split("--").last().removeSuffix(".json")), it)
-        }
-    }
-
-    override fun hasKeyForForAddress(wallethAddress: Address) =
-        fileMap.containsKey(wallethAddress)
-
-    override fun getKeyForAddress(address: Address, password: String) =
-        fileMap[address]?.let {
-            WalletUtils.loadCredentials(password, it).ecKeyPair
-        }
-
-    override fun deleteKey(address: Address) = (fileMap[address]?.delete() ?: false).also {
-        fileMap.remove(address)
-    }
-
-    override fun getAddresses() = fileMap.keys
-
-    override fun importKey(key: ECKeyPair, password: String) =
-        WalletUtils.generateWalletFile(password, key, keyStoreDirectory, false).let {
-            fileMap.rebuildList()
-            Address(it.split("--").last().removeSuffix(".json"))
-        }
 }

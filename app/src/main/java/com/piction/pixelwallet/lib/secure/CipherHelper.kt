@@ -15,7 +15,7 @@ import java.security.spec.RSAKeyGenParameterSpec.F4
 import javax.crypto.Cipher
 
 
-class CipherHelper(applicationContext: Context) {
+class CipherHelper(context: Context) {
 
     private val keyProviderName = "AndroidKeyStore"
 
@@ -23,7 +23,7 @@ class CipherHelper(applicationContext: Context) {
             "${KeyProperties.BLOCK_MODE_ECB}/" +
             KeyProperties.ENCRYPTION_PADDING_RSA_PKCS1
 
-    private val alias = "${applicationContext.packageName}.rsakeypairs"
+    private val alias = "${context.packageName}.rsakeypairs"
 
     private var keyEntry: KeyStore.Entry
 
