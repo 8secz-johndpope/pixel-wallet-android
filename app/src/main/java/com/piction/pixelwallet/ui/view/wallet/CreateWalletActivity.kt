@@ -1,4 +1,4 @@
-package com.piction.pixelwallet.ui.view.account
+package com.piction.pixelwallet.ui.view.wallet
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -10,13 +10,13 @@ import com.piction.pixelwallet.databinding.ActivityCreateAccountBinding
 import dagger.android.AndroidInjection
 import javax.inject.Inject
 
-class CreateAccountActivity : AppCompatActivity() {
+class CreateWalletActivity : AppCompatActivity() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private val viewModel by lazy {
-        ViewModelProviders.of(this, viewModelFactory).get(CreateAccountActivityViewModel::class.java)
+        ViewModelProviders.of(this, viewModelFactory).get(CreateWalletActivityViewModel::class.java)
     }
 
     private val binding by lazy {

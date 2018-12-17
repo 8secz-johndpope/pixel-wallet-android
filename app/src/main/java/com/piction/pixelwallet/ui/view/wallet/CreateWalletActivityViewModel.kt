@@ -1,11 +1,11 @@
-package com.piction.pixelwallet.ui.view.account
+package com.piction.pixelwallet.ui.view.wallet
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import javax.inject.Inject
 
-class CreateAccountActivityViewModel @Inject
+class CreateWalletActivityViewModel @Inject
 constructor(
 ) : ViewModel() {
 

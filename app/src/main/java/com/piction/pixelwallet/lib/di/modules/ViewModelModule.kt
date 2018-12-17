@@ -4,8 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.piction.pixelwallet.lib.di.PixelViewModelFactory
 import com.piction.pixelwallet.lib.di.ViewModelKey
-import com.piction.pixelwallet.ui.view.account.CreateAccountActivity
-import com.piction.pixelwallet.ui.view.account.CreateAccountActivityViewModel
+import com.piction.pixelwallet.ui.view.wallet.CreateWalletActivityViewModel
 import com.piction.pixelwallet.ui.view.home.HomeActivityViewModel
 import dagger.Binds
 import dagger.Module
@@ -24,6 +23,6 @@ abstract class ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(CreateAccountActivityViewModel::class)
-    internal abstract fun bindCreateAccountActivityViewModel(viewModel: CreateAccountActivityViewModel): ViewModel
+    @ViewModelKey(CreateWalletActivityViewModel::class)
+    internal abstract fun bindCreateAccountActivityViewModel(viewModel: CreateWalletActivityViewModel): ViewModel
 }

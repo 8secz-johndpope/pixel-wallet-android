@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.piction.pixelwallet.R
 import com.piction.pixelwallet.databinding.ActivityHomeBinding
-import com.piction.pixelwallet.ui.view.account.CreateAccountActivity
+import com.piction.pixelwallet.ui.view.wallet.CreateWalletActivity
 import com.piction.pixelwallet.util.extension.observeLiveData
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_home.*
@@ -40,7 +40,7 @@ class HomeActivity : AppCompatActivity() {
 
         setSupportActionBar(toolbar)
 
-        observeLiveData(viewModel.startActivity) { startActivity<CreateAccountActivity>() }
+        observeLiveData(viewModel.startActivity) { startActivity<CreateWalletActivity>() }
 
         observeLiveData(viewModel.walletList) { it ->
             it.forEach { Timber.d("Wallet: ${it.address}") }
