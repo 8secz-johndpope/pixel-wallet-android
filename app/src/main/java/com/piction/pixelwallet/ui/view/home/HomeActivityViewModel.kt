@@ -6,8 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.piction.pixelwallet.lib.persistence.CurrentUser
 import com.piction.pixelwallet.lib.persistence.repository.PixelWalletRepository
 import com.piction.pixelwallet.lib.web3.Web3Manager
-import com.piction.pixelwallet.model.Account
-import timber.log.Timber
+import com.piction.pixelwallet.model.Wallet
 import javax.inject.Inject
 
 class HomeActivityViewModel @Inject
@@ -23,8 +22,8 @@ constructor(
     private val startActivityLiveData: MutableLiveData<String> = MutableLiveData()
     val startActivity: LiveData<String> get() = startActivityLiveData
 
-    private val walletListLiveData: LiveData<List<Account>> = pixelWalletRepository.getWalletList()
-    val walletList: LiveData<List<Account>> get() = walletListLiveData
+    private val walletListLiveData: LiveData<List<Wallet>> = pixelWalletRepository.getWalletList()
+    val walletList: LiveData<List<Wallet>> get() = walletListLiveData
 
 
     fun getWeb3Version(): Unit = web3Manager.getVersion { versionLiveData.postValue(it) }

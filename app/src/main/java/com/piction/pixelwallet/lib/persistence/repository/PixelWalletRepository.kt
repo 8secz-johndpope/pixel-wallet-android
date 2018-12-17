@@ -6,7 +6,7 @@ import androidx.lifecycle.Transformations
 import com.piction.pixelwallet.lib.keystore.FileBasedWalletKeyStore
 import com.piction.pixelwallet.lib.persistence.db.dao.PixelWalletDAO
 import com.piction.pixelwallet.lib.persistence.db.mapper.PixelWalletMapper
-import com.piction.pixelwallet.model.Account
+import com.piction.pixelwallet.model.Wallet
 import org.jetbrains.anko.doAsync
 import org.web3j.crypto.ECKeyPair
 
@@ -24,15 +24,15 @@ class PixelWalletRepository(
         }
     }
 
-    fun getWalletList(): LiveData<List<Account>> =
+    fun getWalletList(): LiveData<List<Wallet>> =
         Transformations.map(pixelWalletDAO.selectWalletList()) { list ->
             list.map { PixelWalletMapper.entityToAccount(it) }
         }
 
-    fun deleteWallet(account: Account) {
+    fun deleteWallet(wallet: Wallet) {
         doAsync {
-            if (fileBasedWalletKeyStore.deleteKey(account)) {
-                pixelWalletDAO.deleteWallet(account.address.toString())
+            if (fileBasedWalletKeyStore.deleteKey(wallet)) {
+                pixelWalletDAO.deleteWallet(wallet.address.toString())
             }
         }
     }

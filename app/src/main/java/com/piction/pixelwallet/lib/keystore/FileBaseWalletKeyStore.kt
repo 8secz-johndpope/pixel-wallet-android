@@ -2,7 +2,7 @@ package com.piction.pixelwallet.lib.keystore
 
 import android.content.Context
 import com.piction.pixelwallet.lib.persistence.preferences.SecureDynamicPreference
-import com.piction.pixelwallet.model.Account
+import com.piction.pixelwallet.model.Wallet
 import com.piction.pixelwallet.model.Address
 import org.web3j.crypto.Credentials
 import org.web3j.crypto.ECKeyPair
@@ -27,15 +27,15 @@ class FileBasedWalletKeyStore(val context: Context, private val secureDynamicPre
         }
     }
 
-    fun putKey(key: ECKeyPair): Account =
+    fun putKey(key: ECKeyPair): Wallet =
         WalletUtils.generateWalletFile(secureDynamicPreference.get(pwdKey, ""), key, keyStoreDirectory, false).let {
-            Account(Address(it.split("--").last().removeSuffix(".json")), "", getFile(it))
+            Wallet(Address(it.split("--").last().removeSuffix(".json")), "", getFile(it))
         }
 
-    fun deleteKey(account: Account) = account.file.delete()
+    fun deleteKey(wallet: Wallet) = wallet.file.delete()
 
-    fun getCredentials(account: Account): Credentials =
-        WalletUtils.loadCredentials(secureDynamicPreference.get(pwdKey, ""), account.file)
+    fun getCredentials(wallet: Wallet): Credentials =
+        WalletUtils.loadCredentials(secureDynamicPreference.get(pwdKey, ""), wallet.file)
 
     private fun getFile(name: String): File {
         return File(keyStoreDirectory.absolutePath + "/" + name)

@@ -1,11 +1,11 @@
 package com.piction.pixelwallet.lib.persistence
 
-import com.piction.pixelwallet.model.Account
+import com.piction.pixelwallet.model.Wallet
 
 
 class CurrentUser {
 
-    var currentAccount: Account? = null
+    var currentWallet: Wallet? = null
 
     //todo PIN_CODE
 }

@@ -43,7 +43,7 @@ class HomeActivity : AppCompatActivity() {
         observeLiveData(viewModel.startActivity) { startActivity<CreateAccountActivity>() }
 
         observeLiveData(viewModel.walletList) { it ->
-            it.forEach { Timber.d("Account: ${it.address}") }
+            it.forEach { Timber.d("Wallet: ${it.address}") }
         }
     }
 
