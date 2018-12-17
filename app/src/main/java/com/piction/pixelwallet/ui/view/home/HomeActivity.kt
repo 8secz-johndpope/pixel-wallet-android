@@ -9,11 +9,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.piction.pixelwallet.R
 import com.piction.pixelwallet.databinding.ActivityHomeBinding
+import com.piction.pixelwallet.ui.adapter.viewpager.WalletPagerAdapter
 import com.piction.pixelwallet.ui.view.wallet.CreateWalletActivity
 import com.piction.pixelwallet.util.extension.observeLiveData
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_home.*
 import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.toast
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -39,16 +41,21 @@ class HomeActivity : AppCompatActivity() {
         binding.setLifecycleOwner(this)
 
         setSupportActionBar(toolbar)
+        supportActionBar?.run {
+            setDisplayUseLogoEnabled(true)
+            setLogo(R.drawable.appbar)
+            setDisplayShowTitleEnabled(false)
+        }
+
+        viewSet()
 
         observeLiveData(viewModel.startActivity) { startActivity<CreateWalletActivity>() }
-
-        observeLiveData(viewModel.walletList) { it ->
-            it.forEach { Timber.d("Wallet: ${it.address}") }
+        observeLiveData(viewModel.walletList) {
+            (viewPager.adapter as WalletPagerAdapter).updateItems(it)
         }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.main, menu)
         return true
     }
@@ -58,8 +65,21 @@ class HomeActivity : AppCompatActivity() {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
-            R.id.action_settings -> true
+            R.id.action_settings -> {
+                toast("setting click and create wallet")
+                viewModel.createWallet()
+                true
+            }
             else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    fun viewSet() {
+        viewPager.adapter = WalletPagerAdapter()
+        ptr_layout.setOnRefreshListener {
+            home_recyclerView.stopScroll()
+            //todo transfer log call
+            ptr_layout.isRefreshing = false
         }
     }
 }

@@ -26,8 +26,6 @@ constructor(
     val walletList: LiveData<List<Wallet>> get() = walletListLiveData
 
 
-    fun getWeb3Version(): Unit = web3Manager.getVersion { versionLiveData.postValue(it) }
-
     fun startActivity(msg: String) {
         startActivityLiveData.postValue(msg)
     }
