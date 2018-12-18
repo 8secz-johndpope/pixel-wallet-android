@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Pixel Wallet</string>
 
-    <string name="label_network_name">piction network</string>
+    <string name="label_network_name">PICTION NETWORK</string>
     <string name="label_pxl">PXL</string>
 
     <string name="btn_account_address">Account Address</string>
