@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.piction.pixelwallet.R
 import com.piction.pixelwallet.databinding.ActivityHomeBinding
+import com.piction.pixelwallet.model.Wallet
 import com.piction.pixelwallet.ui.adapter.viewpager.WalletPagerAdapter
 import com.piction.pixelwallet.ui.view.wallet.CreateWalletActivity
 import com.piction.pixelwallet.util.extension.observeLiveData
@@ -76,7 +77,24 @@ class HomeActivity : AppCompatActivity() {
 
     private fun viewSet() {
         viewPager.pageMargin = getDp(10)
-        viewPager.adapter = WalletPagerAdapter()
+        viewPager.adapter = WalletPagerAdapter(object: WalletPagerAdapter.Delegate{
+            override fun onClickAccountAddress(wallet: Wallet) {
+                toast("onClickAccountAddress: ${wallet.address}")
+            }
+
+            override fun onClickManagement(wallet: Wallet) {
+                toast("onClickManagement: ${wallet.address}")
+            }
+
+            override fun onClickCreateWallet() {
+                toast("onClickCreateWallet")
+            }
+
+            override fun onClickLoadWallet() {
+                toast("onClickLoadWallet")
+            }
+
+        })
         ptr_layout.setOnRefreshListener {
             home_recyclerView.stopScroll()
             //todo transfer log call

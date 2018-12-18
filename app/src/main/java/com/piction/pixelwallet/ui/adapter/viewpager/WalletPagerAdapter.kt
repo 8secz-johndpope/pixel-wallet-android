@@ -3,18 +3,27 @@ package com.piction.pixelwallet.ui.adapter.viewpager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.viewpager.widget.PagerAdapter
 import com.piction.pixelwallet.R
+import com.piction.pixelwallet.databinding.ItemCreateWalletBinding
+import com.piction.pixelwallet.databinding.ItemWalletBinding
 import com.piction.pixelwallet.model.Address
 import com.piction.pixelwallet.model.Wallet
-import kotlinx.android.synthetic.main.item_wallet.view.*
+
 import java.io.File
 
 
-class WalletPagerAdapter : PagerAdapter() {
+class WalletPagerAdapter(private val delegate: Delegate) : PagerAdapter() {
+
+    interface Delegate {
+        fun onClickAccountAddress(wallet: Wallet)
+        fun onClickManagement(wallet: Wallet)
+        fun onClickCreateWallet()
+        fun onClickLoadWallet()
+    }
 
     private var items = mutableListOf<Wallet>()
-
 
     private fun getCreateItemData(): Wallet = Wallet(Address("empty"), "empty", File(""))
 
@@ -32,11 +41,18 @@ class WalletPagerAdapter : PagerAdapter() {
 
         if (item.address.cleanHex == "empty") {
             view = LayoutInflater.from(container.context).inflate(R.layout.item_create_wallet, container, false)
+            DataBindingUtil.bind<ItemCreateWalletBinding>(view)?.run {
+                wallet = item
+                this.delegate = this@WalletPagerAdapter.delegate
+            }
         } else {
-            view = LayoutInflater.from(container.context).inflate(R.layout.item_wallet, container, false).apply {
-                name.text = item.address.hex
+            view = LayoutInflater.from(container.context).inflate(R.layout.item_wallet, container, false)
+            DataBindingUtil.bind<ItemWalletBinding>(view)?.run {
+                wallet = item
+                this.delegate = this@WalletPagerAdapter.delegate
             }
         }
+
         container.addView(view, 0)
         return view
     }

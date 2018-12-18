@@ -1,51 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    style="@style/WalletCard"
-    app:strokeWidth="1dp"
-    app:strokeColor="@color/black_12">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout
+    <data>
+        <variable name="wallet" type="com.piction.pixelwallet.model.Wallet"/>
+        <variable name="delegate" type="com.piction.pixelwallet.ui.adapter.viewpager.WalletPagerAdapter.Delegate"/>
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center">
+        android:layout_height="wrap_content"
+        style="@style/WalletCard"
+        app:strokeWidth="1dp"
+        app:strokeColor="@color/black_12">
 
-        <TextView
-            android:id="@+id/name"
-            style="@style/WalletCardWalletName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="13dp"
-            android:text="@string/label_new_wallet"
-            tools:text="Please register your new wallet."/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center">
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:insetLeft="4dp"
-            android:insetRight="4dp"
-            android:text="@string/btn_create_wallet"
-            android:theme="@style/ButtonTextCenterPictionBlue"
-            app:cornerRadius="16dp"
-            tools:text="Create a new wallet"/>
+            <TextView
+                android:id="@+id/name"
+                style="@style/WalletCardWalletName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="13dp"
+                android:text="@string/label_new_wallet"
+                tools:text="Please register your new wallet."/>
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp"
-            android:insetLeft="4dp"
-            android:insetRight="4dp"
-            android:text="@string/btn_load_wallet"
-            android:theme="@style/ButtonTextCenterPictionBlue"
-            app:cornerRadius="16dp"
-            tools:text="Load a wallet"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:insetLeft="4dp"
+                android:insetRight="4dp"
+                android:text="@string/btn_create_wallet"
+                android:theme="@style/ButtonTextCenterPictionBlue"
+                android:onClick="@{(view) -> delegate.onClickCreateWallet()}"
+                app:cornerRadius="16dp"
+                tools:text="Create a new wallet"/>
 
-    </LinearLayout>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"
+                android:insetLeft="4dp"
+                android:insetRight="4dp"
+                android:text="@string/btn_load_wallet"
+                android:theme="@style/ButtonTextCenterPictionBlue"
+                android:onClick="@{(view) -> delegate.onClickLoadWallet()}"
+                app:cornerRadius="16dp"
+                tools:text="Load a wallet"/>
 
-</com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+</layout>
