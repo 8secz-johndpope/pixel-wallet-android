@@ -1,87 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingLeft="10dp"
-    android:paddingRight="10dp"
-    android:paddingBottom="10dp"
-    android:clipToPadding="false">
 
-    <androidx.cardview.widget.CardView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    style="@style/WalletCard"
+    app:strokeWidth="1dp"
+    app:strokeColor="@color/black_12">
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:cardCornerRadius="2dp"
-        app:cardElevation="2dp">
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/name"
+            style="@style/WalletCardWalletName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="21dp"
+            tools:text="My Account 1"/>
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="19dp">
 
             <TextView
-                android:id="@+id/name"
-                style="@style/WalletCardWalletName"
+                android:id="@+id/amount"
+                style="@style/WalletCardPxlAmount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="My Account 1"/>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="19dp">
-
-                <TextView
-                    android:id="@+id/amount"
-                    style="@style/WalletCardPxlAmount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    tools:text="485.0514"/>
-
-                <TextView
-                    style="@style/WalletCardPxl"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="3dp"
-                    android:text="@string/pxl"
-                    tools:text="PXL"/>
-
-            </LinearLayout>
+                android:text="485.0514"
+                tools:text="485.0514"/>
 
             <TextView
-                style="@style/WalletCardWalletType"
+                style="@style/WalletCardPxl"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/network_name"
-                tools:text="piction network"/>
+                android:layout_marginStart="3dp"
+                android:text="@string/label_pxl"
+                tools:text="PXL"/>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="17dp">
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:theme="@style/WalletCardButton"
-                    android:text="@string/btn_account_address"
-                    tools:text="Account Address"/>
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/btn_management"
-                    android:theme="@style/WalletCardButton"
-                    tools:text="Management"/>
-            </LinearLayout>
         </LinearLayout>
 
-    </androidx.cardview.widget.CardView>
+        <TextView
+            style="@style/WalletCardWalletType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_network_name"
+            android:layout_marginTop="4dp"
+            tools:text="piction network"/>
 
-</LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="14dp"
+            android:layout_marginBottom="16dp">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:insetLeft="4dp"
+                android:insetRight="4dp"
+                android:theme="@style/ButtonTextCenterPictionBlue"
+                android:text="@string/btn_account_address"
+                app:cornerRadius="16dp"
+                tools:text="Account Address"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:insetLeft="4dp"
+                android:insetRight="4dp"
+                android:text="@string/btn_management"
+                android:theme="@style/ButtonTextCenterPictionBlue"
+                app:cornerRadius="16dp"
+                tools:text="Management"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

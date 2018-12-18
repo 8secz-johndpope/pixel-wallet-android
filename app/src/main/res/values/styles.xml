@@ -1,9 +1,10 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorOnPrimary">@color/piction_blue</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
@@ -11,13 +12,52 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.ActionBar"/>
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.ActionBar"/>
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light"/>
 
-    <!-- custom -->
-    <style name="WalletCardButton" parent="@style/ButtonTextCenterPictionBlue">
-        <item name="colorButtonNormal">@color/colorPrimary</item>
-        <item name="colorControlHighlight">@color/colorAccent</item>
+    <!-- using -->
+
+    <style name="WalletCard" parent="Widget.MaterialComponents.CardView">
+        <item name="cardBackgroundColor">@color/white_t</item>
+        <item name="cardCornerRadius">10dp</item>
+    </style>
+
+    <style name="WalletCardWalletName">
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="WalletCardPxlAmount">
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="WalletCardPxl">
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/gray</item>
+    </style>
+
+    <style name="WalletCardWalletType">
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/lightgray</item>
+    </style>
+
+    <style name="ButtonTextCenterPictionBlue">
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="ButtonTextCenterWhite" parent="Widget.MaterialComponents.Button">
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="colorPrimary">@color/piction_blue</item>
+        <item name="colorOnPrimary">@color/white</item>
     </style>
 
     <!-- import -->
@@ -36,18 +76,6 @@
     <style name="InputTextEnabledLabel">
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">#767676</item>
-    </style>
-
-    <style name="ButtonTextCenterWhite">
-        <item name="android:gravity">center_horizontal</item>
-        <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@color/white</item>
-    </style>
-
-    <style name="ButtonTextCenterPictionBlue">
-        <item name="android:gravity">center_horizontal</item>
-        <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@color/piction_blue</item>
     </style>
 
     <style name="InputTextEnabledAssistiveText">
@@ -95,33 +123,9 @@
         <item name="android:textColor">@color/red</item>
     </style>
 
-    <style name="WalletCardWalletName">
-        <item name="android:gravity">center_horizontal</item>
-        <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@color/black</item>
-    </style>
-
     <style name="InputTextActiveLabel">
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/piction_blue</item>
-    </style>
-
-    <style name="WalletCardPxlAmount">
-        <item name="android:gravity">center_horizontal</item>
-        <item name="android:textSize">24sp</item>
-        <item name="android:textColor">@color/black</item>
-    </style>
-
-    <style name="WalletCardPxl">
-        <item name="android:gravity">center_horizontal</item>
-        <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@color/gray</item>
-    </style>
-
-    <style name="WalletCardWalletType">
-        <item name="android:gravity">center_horizontal</item>
-        <item name="android:textSize">12sp</item>
-        <item name="android:textColor">@color/lightgray</item>
     </style>
 
     <style name="BottomsheetTitle">

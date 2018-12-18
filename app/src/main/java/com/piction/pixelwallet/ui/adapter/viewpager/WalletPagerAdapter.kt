@@ -41,10 +41,6 @@ class WalletPagerAdapter : PagerAdapter() {
         return view
     }
 
-    override fun getPageWidth(position: Int): Float {
-        return if (position == items.size - 1) 1f else 0.95f
-    }
-
     override fun destroyItem(container: ViewGroup, position: Int, any: Any) {
         container.removeView(any as View)
     }

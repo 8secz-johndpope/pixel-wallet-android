@@ -74,12 +74,18 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    fun viewSet() {
+    private fun viewSet() {
+        viewPager.pageMargin = getDp(10)
         viewPager.adapter = WalletPagerAdapter()
         ptr_layout.setOnRefreshListener {
             home_recyclerView.stopScroll()
             //todo transfer log call
             ptr_layout.isRefreshing = false
         }
+    }
+
+    private fun getDp(size: Int): Int {
+        val scale = resources.displayMetrics.density
+        return (size * scale + 0.5f).toInt()
     }
 }

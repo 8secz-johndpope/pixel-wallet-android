@@ -1,34 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingLeft="10dp"
-    android:paddingRight="10dp"
-    android:paddingBottom="10dp"
-    android:clipToPadding="false">
+    android:layout_height="wrap_content"
+    style="@style/WalletCard"
+    app:strokeWidth="1dp"
+    app:strokeColor="@color/black_12">
 
-    <androidx.cardview.widget.CardView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:cardCornerRadius="2dp"
-        app:cardElevation="2dp">
+        android:orientation="vertical"
+        android:gravity="center">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center">
+        <TextView
+            android:id="@+id/name"
+            style="@style/WalletCardWalletName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="13dp"
+            android:text="@string/label_new_wallet"
+            tools:text="Please register your new wallet."/>
 
-            <TextView
-                android:id="@+id/create"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="만들자 만들자"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:insetLeft="4dp"
+            android:insetRight="4dp"
+            android:text="@string/btn_create_wallet"
+            android:theme="@style/ButtonTextCenterPictionBlue"
+            app:cornerRadius="16dp"
+            tools:text="Create a new wallet"/>
 
-        </LinearLayout>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:insetLeft="4dp"
+            android:insetRight="4dp"
+            android:text="@string/btn_load_wallet"
+            android:theme="@style/ButtonTextCenterPictionBlue"
+            app:cornerRadius="16dp"
+            tools:text="Load a wallet"/>
 
-    </androidx.cardview.widget.CardView>
+    </LinearLayout>
 
-</LinearLayout>
+</com.google.android.material.card.MaterialCardView>
