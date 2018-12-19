@@ -7,9 +7,11 @@ import android.view.MenuItem
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import androidx.viewpager.widget.ViewPager
 import com.piction.pixelwallet.R
 import com.piction.pixelwallet.databinding.ActivityHomeBinding
 import com.piction.pixelwallet.model.Wallet
+import com.piction.pixelwallet.model.WalletCard
 import com.piction.pixelwallet.ui.adapter.viewpager.WalletPagerAdapter
 import com.piction.pixelwallet.ui.view.wallet.CreateWalletActivity
 import com.piction.pixelwallet.util.extension.observeLiveData
@@ -20,7 +22,7 @@ import org.jetbrains.anko.toast
 import timber.log.Timber
 import javax.inject.Inject
 
-class HomeActivity : AppCompatActivity() {
+class HomeActivity : AppCompatActivity(), ViewPager.OnPageChangeListener {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -50,9 +52,9 @@ class HomeActivity : AppCompatActivity() {
 
         viewSet()
 
-        observeLiveData(viewModel.startActivity) { startActivity<CreateWalletActivity>() }
         observeLiveData(viewModel.walletList) {
             (viewPager.adapter as WalletPagerAdapter).updateItems(it)
+
         }
     }
 
@@ -75,15 +77,28 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
+    override fun onPageScrollStateChanged(state: Int) {
+
+    }
+
+    override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+
+    }
+
+    override fun onPageSelected(position: Int) {
+        //call viewModel
+        callTransactionLog()
+    }
+
     private fun viewSet() {
         viewPager.pageMargin = getDp(10)
         viewPager.adapter = WalletPagerAdapter(object: WalletPagerAdapter.Delegate{
-            override fun onClickAccountAddress(wallet: Wallet) {
-                toast("onClickAccountAddress: ${wallet.address}")
+            override fun onClickAccountAddress(walletCard: WalletCard) {
+                toast("onClickAccountAddress: ${walletCard.address}")
             }
 
-            override fun onClickManagement(wallet: Wallet) {
-                toast("onClickManagement: ${wallet.address}")
+            override fun onClickManagement(walletCard: WalletCard) {
+                toast("onClickManagement: ${walletCard.address}")
             }
 
             override fun onClickCreateWallet() {
@@ -95,11 +110,17 @@ class HomeActivity : AppCompatActivity() {
             }
 
         })
+        viewPager.addOnPageChangeListener(this)
         ptr_layout.setOnRefreshListener {
             home_recyclerView.stopScroll()
-            //todo transfer log call
-            ptr_layout.isRefreshing = false
+            callTransactionLog()
         }
+    }
+
+    fun callTransactionLog() {
+        //todo transactions log
+
+        ptr_layout.isRefreshing = false
     }
 
     private fun getDp(size: Int): Int {

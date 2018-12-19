@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="wallet"
-            type="com.piction.pixelwallet.model.Wallet"/>
+            name="walletCard"
+            type="com.piction.pixelwallet.model.WalletCard"/>
 
         <variable
             name="delegate"
@@ -34,7 +34,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="21dp"
-                android:text="@{wallet.address.toString()}"
+                android:text="@{walletCard.address.toString()}"
                 tools:text="My Account 1"/>
 
             <LinearLayout
@@ -48,7 +48,7 @@
                     style="@style/WalletCardPxlAmount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="485.0514"
+                    android:text="@{walletCard.amount.toString()}"
                     tools:text="485.0514"/>
 
                 <TextView
@@ -83,7 +83,7 @@
                     android:insetRight="4dp"
                     android:theme="@style/ButtonTextCenterPictionBlue"
                     android:text="@string/btn_account_address"
-                    android:onClick="@{(view) -> delegate.onClickAccountAddress(wallet)}"
+                    android:onClick="@{(view) -> delegate.onClickAccountAddress(walletCard)}"
                     app:cornerRadius="16dp"
                     tools:text="Account Address"/>
 
@@ -93,7 +93,7 @@
                     android:insetLeft="4dp"
                     android:insetRight="4dp"
                     android:text="@string/btn_management"
-                    android:onClick="@{(view) -> delegate.onClickManagement(wallet)}"
+                    android:onClick="@{(view) -> delegate.onClickManagement(walletCard)}"
                     android:theme="@style/ButtonTextCenterPictionBlue"
                     app:cornerRadius="16dp"
                     tools:text="Management"/>

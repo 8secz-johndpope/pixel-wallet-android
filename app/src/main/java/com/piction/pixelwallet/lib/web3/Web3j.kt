@@ -8,7 +8,7 @@ import rx.schedulers.Schedulers
 
 class Web3j : Web3 {
 
-    private val web3: Web3j = Web3jFactory.build(HttpService("https://ropsten.infura.io/v3/76fff91884f54fcd84c328956afc74d6"))
+    private val web3: Web3j = Web3jFactory.build(HttpService("https://private.piction.network:8545"))//ropsten.infura.io/v3/76fff91884f54fcd84c328956afc74d6"))
 
     override fun getVersion(result: (String) -> Unit) {
         web3.web3ClientVersion()

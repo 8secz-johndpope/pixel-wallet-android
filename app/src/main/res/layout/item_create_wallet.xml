@@ -4,7 +4,6 @@
         xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <variable name="wallet" type="com.piction.pixelwallet.model.Wallet"/>
         <variable name="delegate" type="com.piction.pixelwallet.ui.adapter.viewpager.WalletPagerAdapter.Delegate"/>
     </data>
 

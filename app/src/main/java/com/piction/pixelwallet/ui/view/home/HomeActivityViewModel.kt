@@ -2,11 +2,14 @@ package com.piction.pixelwallet.ui.view.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.piction.pixelwallet.lib.persistence.CurrentUser
 import com.piction.pixelwallet.lib.persistence.repository.PixelWalletRepository
 import com.piction.pixelwallet.lib.web3.Web3Manager
 import com.piction.pixelwallet.model.Wallet
+import com.piction.pixelwallet.model.WalletCard
+import java.math.BigInteger
 import javax.inject.Inject
 
 class HomeActivityViewModel @Inject
@@ -16,18 +19,22 @@ constructor(
     private val pixelWalletRepository: PixelWalletRepository
 ) : ViewModel() {
 
-    private val versionLiveData: MutableLiveData<String> = MutableLiveData()
-    val version: LiveData<String> get() = versionLiveData
-
-    private val startActivityLiveData: MutableLiveData<String> = MutableLiveData()
-    val startActivity: LiveData<String> get() = startActivityLiveData
-
     private val walletListLiveData: LiveData<List<Wallet>> = pixelWalletRepository.getWalletList()
-    val walletList: LiveData<List<Wallet>> get() = walletListLiveData
+    private val walletCardListLiveData: LiveData<List<WalletCard>> = Transformations.switchMap(walletListLiveData) { it ->
+        //todo pxl balance
+
+        val lt = (it.map {
+            WalletCard(it.address, it.name, it.file, BigInteger("0"))
+        })
+        MutableLiveData<List<WalletCard>>().apply { postValue(lt) }
+    }
+
+    val walletList: LiveData<List<WalletCard>> get() = walletCardListLiveData
 
 
-    fun startActivity(msg: String) {
-        startActivityLiveData.postValue(msg)
+
+    fun getBalance(wallets: List<Wallet>) {
+
     }
 
     fun createWallet() {
